@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func Test_upload(t *testing.T) {
+func Test_Upload(t *testing.T) {
 	app := newTestApplication(t)
 	ts := newTestServer(t, app.routes())
 	defer ts.Close()
