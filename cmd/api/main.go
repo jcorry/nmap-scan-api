@@ -7,6 +7,10 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/jcorry/nmap-scan-api/pkg/models/sqlite"
+
+	"github.com/jcorry/nmap-scan-api/pkg/models"
+
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/sqlite3"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
@@ -16,6 +20,13 @@ import (
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	hostRepo interface {
+		BatchInsert(hosts []*models.Host) (err error)
+		Insert(host *models.Host) (err error)
+	}
+	importRepo interface {
+		Insert(fileImport *models.FileImport) (err error)
+	}
 }
 
 func main() {
@@ -55,8 +66,10 @@ func main() {
 
 	// create application
 	app := &application{
-		errorLog: errorLog,
-		infoLog:  infoLog,
+		errorLog:   errorLog,
+		infoLog:    infoLog,
+		hostRepo:   &sqlite.HostRepo{DB: db},
+		importRepo: &sqlite.FileImportRepo{DB: db},
 	}
 
 	srv := &http.Server{

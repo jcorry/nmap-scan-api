@@ -31,14 +31,13 @@ created
 ```
 400
 ```
-{
-    "error": ERROR_MESSAGE
-}
+ERROR_MESSAGE string
 ```
 
 ## **GET** /api/v1/nmap
+## **GET** /nmap (HTML representation)
 
-Get a list of nmap hosts
+Get a paginated list of nmap hosts
 
 ### Request
 

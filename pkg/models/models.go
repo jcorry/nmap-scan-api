@@ -6,16 +6,24 @@ import (
 	nmap "github.com/tomsteele/go-nmap"
 )
 
+// FileImport is the importation of a single nmap file
+type FileImport struct {
+	ID      int       `json:"id" db:"id"`
+	FileID  string    `json:"fileid" db:"file_id"`
+	Created time.Time `json:"created" db:"created"`
+}
+
 // Host is an internal type that contains a subset of the data in a go-nmap.Host
 type Host struct {
-	FileID    string     `json:"fileid" db:"file_id"`
-	StartTime time.Time  `json:"starttime" db:"starttime"`
-	EndTime   time.Time  `json:"endtime" db:"endtime"`
-	Comment   string     `json:"comment" db:"comment"`
-	Status    string     `json:"status" db:"status"`
-	Hostnames []Hostname `json:"hostnames"`
-	Addresses []Address  `json:"addresses"`
-	Ports     []Port     `json:"ports"`
+	ID        int         `json:"id" db:"id"`
+	FileID    string      `json:"fileid" db:"file_id"`
+	StartTime time.Time   `json:"starttime" db:"starttime"`
+	EndTime   time.Time   `json:"endtime" db:"endtime"`
+	Comment   string      `json:"comment" db:"comment"`
+	Status    string      `json:"status" db:"status"`
+	Hostnames []*Hostname `json:"hostnames"`
+	Addresses []*Address  `json:"addresses"`
+	Ports     []*Port     `json:"ports"`
 }
 
 // Address is an internal type that contains a subset of the data in a go-nmap.Address
@@ -66,7 +74,7 @@ func ParseXMLData(fileID string, data []byte) ([]*Host, error) {
 				Name: hn.Name,
 				Type: hn.Type,
 			}
-			host.Hostnames = append(host.Hostnames, *hostname)
+			host.Hostnames = append(host.Hostnames, hostname)
 		}
 		// Parse ports
 		for _, p := range h.Ports {
@@ -76,7 +84,7 @@ func ParseXMLData(fileID string, data []byte) ([]*Host, error) {
 				Owner:    p.Owner.Name,
 				Service:  p.Service.Name,
 			}
-			host.Ports = append(host.Ports, *port)
+			host.Ports = append(host.Ports, port)
 		}
 		// Parse addresses
 		for _, a := range h.Addresses {
@@ -84,7 +92,7 @@ func ParseXMLData(fileID string, data []byte) ([]*Host, error) {
 				Addr:     a.Addr,
 				AddrType: a.AddrType,
 			}
-			host.Addresses = append(host.Addresses, *address)
+			host.Addresses = append(host.Addresses, address)
 		}
 		hosts = append(hosts, host)
 	}
