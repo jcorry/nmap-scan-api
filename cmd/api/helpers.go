@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"runtime/debug"
@@ -8,7 +9,7 @@ import (
 
 func (a *application) serverError(w http.ResponseWriter, err error) {
 	trace := fmt.Sprintf("%s\n%s", err.Error(), debug.Stack())
-	a.errorLog.Output(2, trace)
+	_ := a.errorLog.Output(2, trace)
 
 	http.Error(
 		w,
@@ -22,4 +23,16 @@ func (a *application) clientError(w http.ResponseWriter, status int) {
 
 func (a *application) notFound(w http.ResponseWriter) {
 	a.clientError(w, http.StatusNotFound)
+}
+
+func (a *application) jsonResponse(w http.ResponseWriter, data interface{}) {
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		a.serverError(w, err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonData)
 }

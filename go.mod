@@ -7,4 +7,5 @@ require (
 	github.com/golang-migrate/migrate v3.5.4+incompatible // indirect
 	github.com/golang-migrate/migrate/v4 v4.6.2
 	github.com/mattn/go-sqlite3 v1.11.0
+	github.com/tomsteele/go-nmap v0.0.0-20181105160706-3b9bafddefee
 )
