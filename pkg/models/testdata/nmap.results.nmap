@@ -1,0 +1,443 @@
+# Nmap 7.70 scan initiated Fri Apr 20 12:36:44 2018 as: nmap -Pn -p80,443,8443,5000,8080 -iL ips.txt -oA nmap.results -vvvvv
+Nmap scan report for cpc123026-glen5-2-0-cust970.2-1.cable.virginm.net (81.107.115.203)
+Host is up, received user-set (0.18s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for nicholas.cybershark.net (158.69.205.102)
+Host is up, received user-set (0.058s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for loghermes.sysraildata.com (193.22.92.195)
+Host is up, received user-set (0.12s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for 75-128-231-70.dhcp.mrqt.mi.charter.com (75.128.231.70)
+Host is up, received user-set (0.079s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for gudevarangian.info (31.133.197.48)
+Host is up, received user-set (0.25s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE  SERVICE    REASON
+80/tcp   open   http       syn-ack
+443/tcp  open   https      syn-ack
+5000/tcp closed upnp       conn-refused
+8080/tcp closed http-proxy conn-refused
+8443/tcp closed https-alt  conn-refused
+
+Nmap scan report for 185.5.127.183
+Host is up, received user-set (0.14s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for ec2-34-253-166-19.eu-west-1.compute.amazonaws.com (34.253.166.19)
+Host is up, received user-set (0.14s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for 123-243-191-198.static.tpgi.com.au (123.243.191.198)
+Host is up, received user-set (0.27s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 4s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for 114.242.131.194
+Host is up, received user-set (0.26s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 3s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  open     https      syn-ack
+5000/tcp open     upnp       syn-ack
+8080/tcp filtered http-proxy no-response
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for ec2-54-238-79-92.ap-northeast-1.compute.amazonaws.com (54.238.79.92)
+Host is up, received user-set (0.19s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for 50-24-100-28.bcstcmtk02.res.dyn.suddenlink.net (50.24.100.28)
+Host is up, received user-set (0.21s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 3s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  filtered https      no-response
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for cable-85.28.99.232.coditel.net (85.28.99.232)
+Host is up, received user-set (0.14s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for sud-cable-cmts5-66-186-91-196.vianet.ca (66.186.91.196)
+Host is up, received user-set (0.082s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  filtered https      no-response
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for 192-162-233-53.inaddr.vnstr.net (192.162.233.53)
+Host is up, received user-set (0.17s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE  SERVICE    REASON
+80/tcp   open   http       syn-ack
+443/tcp  closed https      conn-refused
+5000/tcp closed upnp       conn-refused
+8080/tcp open   http-proxy syn-ack
+8443/tcp closed https-alt  conn-refused
+
+Nmap scan report for dsl-189-129-7-43-dyn.prod-infinitum.com.mx (189.129.7.43)
+Host is up, received user-set (0.11s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  filtered https      no-response
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for modemcable146.138-70-69.static.videotron.ca (69.70.138.146)
+Host is up, received user-set (0.086s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  filtered https      no-response
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for 196.17.55.67
+Host is up, received user-set (0.088s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE  SERVICE    REASON
+80/tcp   open   http       syn-ack
+443/tcp  closed https      conn-refused
+5000/tcp closed upnp       conn-refused
+8080/tcp open   http-proxy syn-ack
+8443/tcp closed https-alt  conn-refused
+
+Nmap scan report for 85-237-239-4.static.orange.sk (85.237.239.4)
+Host is up, received user-set (0.16s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for dsl-187-200-8-215-dyn.prod-infinitum.com.mx (187.200.8.215)
+Host is up, received user-set (0.11s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for 182.253.35.117
+Host is up, received user-set (0.31s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 4s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  filtered https      no-response
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for reverse.completel.net (83.145.85.173)
+Host is up, received user-set (0.14s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   closed   http       conn-refused
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for 127398-app1.digitalmediacommunications.com (74.205.93.171)
+Host is up, received user-set (0.045s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 1s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for 192.230.94.173.ip.incapdns.net (192.230.94.173)
+Host is up, received user-set (0.25s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 1s
+
+PORT     STATE SERVICE    REASON
+80/tcp   open  http       syn-ack
+443/tcp  open  https      syn-ack
+5000/tcp open  upnp       syn-ack
+8080/tcp open  http-proxy syn-ack
+8443/tcp open  https-alt  syn-ack
+
+Nmap scan report for pool-96-238-51-251.prvdri.fios.verizon.net (96.238.51.251)
+Host is up, received user-set (0.097s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  filtered https      no-response
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for 213.180.93.14
+Host is up, received user-set (0.16s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE  SERVICE    REASON
+80/tcp   open   http       syn-ack
+443/tcp  open   https      syn-ack
+5000/tcp closed upnp       conn-refused
+8080/tcp closed http-proxy conn-refused
+8443/tcp open   https-alt  syn-ack
+
+Nmap scan report for 104.18.156.235
+Host is up, received user-set (0.027s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 1s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for 104.23.138.35
+Host is up, received user-set (0.024s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 1s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for 104.23.201.32
+Host is up, received user-set (0.026s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 1s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp open     http-proxy syn-ack
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for 211.228.220.76
+Host is up, received user-set (0.36s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 4s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  filtered https      no-response
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for ns3017978.ip-151-80-25.eu (151.80.25.235)
+Host is up, received user-set (0.14s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp filtered upnp       no-response
+8080/tcp filtered http-proxy no-response
+8443/tcp open     https-alt  syn-ack
+
+Nmap scan report for dsl-187-156-61-222-dyn.prod-infinitum.com.mx (187.156.61.222)
+Host is up, received user-set (0.14s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE  SERVICE    REASON
+80/tcp   open   http       syn-ack
+443/tcp  open   https      syn-ack
+5000/tcp open   upnp       syn-ack
+8080/tcp open   http-proxy syn-ack
+8443/tcp closed https-alt  conn-refused
+
+Nmap scan report for hfc-181-137-43-232.une.net.co (181.137.43.232)
+Host is up, received user-set (0.10s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE  SERVICE    REASON
+80/tcp   open   http       syn-ack
+443/tcp  open   https      syn-ack
+5000/tcp open   upnp       syn-ack
+8080/tcp closed http-proxy conn-refused
+8443/tcp closed https-alt  conn-refused
+
+Nmap scan report for apn-188-125-35-169.static.gprs.plus.pl (188.125.35.169)
+Host is up, received user-set (0.41s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 4s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  open     https      syn-ack
+5000/tcp open     upnp       syn-ack
+8080/tcp closed   http-proxy conn-refused
+8443/tcp closed   https-alt  conn-refused
+
+Nmap scan report for 119-63-123-49.catv.tees.ne.jp (119.63.123.49)
+Host is up, received user-set (0.39s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 3s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  filtered https      no-response
+5000/tcp open     upnp       syn-ack
+8080/tcp closed   http-proxy conn-refused
+8443/tcp closed   https-alt  conn-refused
+
+Nmap scan report for 107.154.143.108.ip.incapdns.net (107.154.143.108)
+Host is up, received user-set (0.039s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE SERVICE    REASON
+80/tcp   open  http       syn-ack
+443/tcp  open  https      syn-ack
+5000/tcp open  upnp       syn-ack
+8080/tcp open  http-proxy syn-ack
+8443/tcp open  https-alt  syn-ack
+
+Nmap scan report for 47.93.173.17
+Host is up, received user-set (0.26s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE  SERVICE    REASON
+80/tcp   closed http       conn-refused
+443/tcp  closed https      conn-refused
+5000/tcp open   upnp       syn-ack
+8080/tcp closed http-proxy conn-refused
+8443/tcp closed https-alt  conn-refused
+
+Nmap scan report for 183.102.183.60
+Host is up, received user-set (0.23s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   filtered http       no-response
+443/tcp  closed   https      conn-refused
+5000/tcp open     upnp       syn-ack
+8080/tcp closed   http-proxy conn-refused
+8443/tcp closed   https-alt  conn-refused
+
+Nmap scan report for cable-178-148-177-151.dynamic.sbb.rs (178.148.177.151)
+Host is up, received user-set (0.18s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  open     https      syn-ack
+5000/tcp open     upnp       syn-ack
+8080/tcp filtered http-proxy no-response
+8443/tcp closed   https-alt  conn-refused
+
+Nmap scan report for D96425AA.static.ziggozakelijk.nl (217.100.37.170)
+Host is up, received user-set (0.15s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 2s
+
+PORT     STATE    SERVICE    REASON
+80/tcp   open     http       syn-ack
+443/tcp  filtered https      no-response
+5000/tcp open     upnp       syn-ack
+8080/tcp filtered http-proxy no-response
+8443/tcp filtered https-alt  no-response
+
+Nmap scan report for 121.22.246.97
+Host is up, received user-set (0.27s latency).
+Scanned at 2018-04-20 12:36:54 EDT for 0s
+
+PORT     STATE  SERVICE    REASON
+80/tcp   open   http       syn-ack
+443/tcp  open   https      syn-ack
+5000/tcp open   upnp       syn-ack
+8080/tcp open   http-proxy syn-ack
+8443/tcp closed https-alt  conn-refused
+
+Read data files from: /usr/local/bin/../share/nmap
+# Nmap done at Fri Apr 20 12:36:58 2018 -- 40 IP addresses (40 hosts up) scanned in 13.95 seconds

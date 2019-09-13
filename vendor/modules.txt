@@ -1,6 +1,9 @@
+# github.com/bmizerany/pat v0.0.0-20170815010413-6226ea591a40
+github.com/bmizerany/pat
 # github.com/golang-migrate/migrate/v4 v4.6.2
 github.com/golang-migrate/migrate/v4
 github.com/golang-migrate/migrate/v4/database/sqlite3
+github.com/golang-migrate/migrate/v4/source/file
 github.com/golang-migrate/migrate/v4/database
 github.com/golang-migrate/migrate/v4/internal/url
 github.com/golang-migrate/migrate/v4/source
@@ -10,3 +13,5 @@ github.com/hashicorp/errwrap
 github.com/hashicorp/go-multierror
 # github.com/mattn/go-sqlite3 v1.11.0
 github.com/mattn/go-sqlite3
+# github.com/tomsteele/go-nmap v0.0.0-20181105160706-3b9bafddefee
+github.com/tomsteele/go-nmap

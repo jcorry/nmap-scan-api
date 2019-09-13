@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	nmap "github.com/tomsteele/go-nmap"
+)
 
 // Host is an internal type that contains a subset of the data in a go-nmap.Host
 type Host struct {
@@ -35,4 +39,54 @@ type Hostname struct {
 	HostID int    `json:"hostid" db:"host_id"`
 	Name   string `json:"name" db:"name"`
 	Type   string `json:"type" db:"type"`
+}
+
+// ParseXMLData parses data from incoming nmap XML files to structs
+// valid file types are XML
+func ParseXMLData(fileID string, data []byte) ([]*Host, error) {
+	d, err := nmap.Parse(data)
+	if err != nil {
+		return nil, err
+	}
+
+	var hosts []*Host
+
+	for _, h := range d.Hosts {
+
+		host := &Host{
+			FileID:    fileID,
+			StartTime: time.Time(h.StartTime),
+			EndTime:   time.Time(h.EndTime),
+			Comment:   h.Comment,
+			Status:    h.Status.Reason,
+		}
+		// Parse hostnames
+		for _, hn := range h.Hostnames {
+			hostname := &Hostname{
+				Name: hn.Name,
+				Type: hn.Type,
+			}
+			host.Hostnames = append(host.Hostnames, *hostname)
+		}
+		// Parse ports
+		for _, p := range h.Ports {
+			port := &Port{
+				Protocol: p.Protocol,
+				PortID:   p.PortId,
+				Owner:    p.Owner.Name,
+				Service:  p.Service.Name,
+			}
+			host.Ports = append(host.Ports, *port)
+		}
+		// Parse addresses
+		for _, a := range h.Addresses {
+			address := &Address{
+				Addr:     a.Addr,
+				AddrType: a.AddrType,
+			}
+			host.Addresses = append(host.Addresses, *address)
+		}
+		hosts = append(hosts, host)
+	}
+	return hosts, nil
 }

@@ -2,7 +2,9 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -17,6 +19,8 @@ type application struct {
 }
 
 func main() {
+	addr := fmt.Sprintf(":%s", os.Getenv("PORT"))
+
 	// Loggers
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
@@ -48,4 +52,21 @@ func main() {
 	if err != nil {
 		errorLog.Println(err)
 	}
+
+	// create application
+	app := &application{
+		errorLog: errorLog,
+		infoLog:  infoLog,
+	}
+
+	srv := &http.Server{
+		Addr:     addr,
+		ErrorLog: errorLog,
+		Handler:  app.routes(),
+	}
+
+	infoLog.Printf("Starting server on %s", srv.Addr)
+
+	err = srv.ListenAndServe()
+	errorLog.Fatal(err)
 }
