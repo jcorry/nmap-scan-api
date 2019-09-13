@@ -42,6 +42,7 @@ type Hostname struct {
 }
 
 // ParseXMLData parses data from incoming nmap XML files to structs
+// valid file types are XML
 func ParseXMLData(fileID string, data []byte) ([]*Host, error) {
 	d, err := nmap.Parse(data)
 	if err != nil {
