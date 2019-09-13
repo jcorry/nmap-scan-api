@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"database/sql"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -13,6 +14,8 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/jcorry/nmap-scan-api/pkg/models/mock"
 )
 
 type testServer struct {
@@ -21,9 +24,15 @@ type testServer struct {
 
 func newTestApplication(t *testing.T) *application {
 	return &application{
-		errorLog: log.New(ioutil.Discard, "", 0),
-		infoLog:  log.New(ioutil.Discard, "", 0),
+		errorLog:   log.New(ioutil.Discard, "", 0),
+		infoLog:    log.New(ioutil.Discard, "", 0),
+		hostRepo:   &mock.HostRepo{},
+		importRepo: &mock.FileImportRepo{},
 	}
+}
+
+func newTestDB(t *testing.T) *sql.DB {
+	sqlite_test.newTestDB(t)
 }
 
 func newTestServer(t *testing.T, h http.Handler) *testServer {
