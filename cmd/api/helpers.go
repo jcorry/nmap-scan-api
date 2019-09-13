@@ -9,7 +9,7 @@ import (
 
 func (a *application) serverError(w http.ResponseWriter, err error) {
 	trace := fmt.Sprintf("%s\n%s", err.Error(), debug.Stack())
-	_ := a.errorLog.Output(2, trace)
+	_ = a.errorLog.Output(2, trace)
 
 	http.Error(
 		w,
@@ -17,12 +17,12 @@ func (a *application) serverError(w http.ResponseWriter, err error) {
 		http.StatusInternalServerError)
 }
 
-func (a *application) clientError(w http.ResponseWriter, status int) {
-	http.Error(w, http.StatusText(status), status)
+func (a *application) clientError(w http.ResponseWriter, err error, status int) {
+	http.Error(w, fmt.Sprintf("%s", err), status)
 }
 
 func (a *application) notFound(w http.ResponseWriter) {
-	a.clientError(w, http.StatusNotFound)
+	a.clientError(w, nil, http.StatusNotFound)
 }
 
 func (a *application) jsonResponse(w http.ResponseWriter, data interface{}) {

@@ -13,7 +13,7 @@ import (
 func (a *application) upload(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseMultipartForm(10 << 20)
 	if err != nil {
-		a.serverError(w, err)
+		a.clientError(w, err, 400)
 		return
 	}
 
@@ -38,12 +38,13 @@ func (a *application) upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data, err := models.ParseXMLData(fmt.Sprintf("%x", h.Sum(nil)), b)
+	_, err = models.ParseXMLData(fmt.Sprintf("%x", h.Sum(nil)), b)
 	if err != nil {
 		a.serverError(w, err)
 		return
 	}
 
-	// w.WriteHeader(http.StatusCreated)
-	a.jsonResponse(w, data)
+	w.WriteHeader(http.StatusCreated)
+	w.Write([]byte{})
+	return
 }
