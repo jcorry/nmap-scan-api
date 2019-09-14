@@ -16,6 +16,17 @@ In the above challenge, feel free to use any language. For your submission, pack
 
 ## Solution
 
+### Run it
+1. Build the image
+
+    `docker build -t nmap-api .`
+
+2. Run the image in a container
+
+    `docker run -it -e "PORT=8080" -p 8080:8080 nmap-api`
+
+3. Make requests!
+
 # HTTP Endpoints
 
 ## **POST** /api/v1/nmap/upload
