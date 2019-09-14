@@ -26,8 +26,12 @@ COPY . .
 # Since this wasn't in the repo, create it here...will not persist between image builds
 RUN touch db/data.db
 
+# Run the tests
+RUN go test ./...
+
 # Build the app
 RUN go build -v -mod=vendor ./cmd/api
+
 
 # New container in which this will run
 FROM alpine
