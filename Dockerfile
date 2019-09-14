@@ -19,6 +19,7 @@ RUN rm -rf /var/cache/apk/*
 # env vars
 ENV GO111MODULE=on
 ENV CGO_ENABLED=1
+ENV GOFLAGS=-mod=vendor
 
 # Move source files
 COPY . .

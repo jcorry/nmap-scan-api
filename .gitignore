@@ -3,3 +3,7 @@
 cp.out
 .idea
 db
+
+# memory DBs
+/cmd/api/memory:
+/pkg/models/sqlite/memory:
