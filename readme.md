@@ -1,4 +1,4 @@
-![](https://github.com/jcorry/nmap-scan-api/workflows/Go%20build/badge.svg)
+![](https://github.com/jcorry/nmap-scan-api/workflows/Go/badge.svg)
 # nmap-scan API
 
 A simple file parser for nmap XML data.
@@ -29,13 +29,18 @@ I love building things and I really want to build them well. Perfection is proba
 better at our craft and seeking better ways of doing things can be a part of every day and every task. 
 [Kaizen](https://en.wikipedia.org/wiki/Kaizen), improvement.
 
-In this exercise I tried to convey some of the principles and practices that I believe are good, some of those are:
+The biggest assumption I made was that the purpose of the exercise is to demonstrate principles, values, patterns and 
+my ideas about how software should be built. I tried to do that faithfully. I have interviewed many software engineering 
+candidates and know what I look for, I have tried to deliver indications of my values.
+
+Some guiding principles that I tried to convey here:
 1. Separation of concerns
-2. Documentation should be adequate
-3. Unit/Integration test should back the code
-4. CI protects the codebase
-5. Issues should be tracked and changes to code should reference the issue that required the change
-6. Source control should be used effectively and should tell a story about the development of a project
+2. Security should be considered
+3. Documentation should be adequate
+4. Unit/Integration test should back the code
+5. CI protects the codebase
+6. Issues should be tracked and changes to code should reference the issue that required the change
+7. Source control should be used effectively and should tell a story about the development of a project
 
 I also made some compromises for the sake of expediency:
 1. There's some duplication in test setup between `/cmd` and `/pkg`. I normally would use DB mocks in my http handler tests
@@ -48,7 +53,7 @@ the README.
 3. I would probably revise the data model if I were to do this over again. Once I got into implementing the UI (last!)
 I found some characteristics of the data models that I didn't like.
 
-### Run it
+### Run it!
 The most reliable way to distribute the application is as a docker image. You will need docker installed on your 
 machine to run the Dockerfile. If you do not have Docker installed on your machine, you may be able to build and run
 the Go binary, but it will depend on your having SQLite installed. "It works on my machine", but to make sure you can run 
