@@ -27,6 +27,7 @@ type testServer struct {
 
 func newTestApplication(t *testing.T) *application {
 	return &application{
+		tmplDir:    os.Getenv("TMPL_DIR"),
 		errorLog:   log.New(ioutil.Discard, "", 0),
 		infoLog:    log.New(ioutil.Discard, "", 0),
 		hostRepo:   &mock.HostRepo{},
@@ -41,6 +42,7 @@ func newTestServer(t *testing.T, h http.Handler) *testServer {
 }
 
 func newTestDB(t *testing.T) (*sql.DB, func()) {
+	os.Remove("memory:")
 	db, err := sql.Open("sqlite3", "file:memory:?cache=shared")
 	if err != nil {
 		t.Fatal(err)
@@ -145,16 +147,16 @@ func (ts *testServer) request(t *testing.T, method string, urlPath string, reqBo
 	}
 
 	switch method {
-	case "get":
-		req.Method = "GET"
-	case "post":
-		req.Method = "POST"
-	case "patch":
-		req.Method = "PATCH"
-	case "put":
-		req.Method = "PUT"
-	case "delete":
-		req.Method = "DELETE"
+	case http.MethodGet:
+		req.Method = http.MethodGet
+	case http.MethodPost:
+		req.Method = http.MethodPost
+	case http.MethodPatch:
+		req.Method = http.MethodPatch
+	case http.MethodPut:
+		req.Method = http.MethodPut
+	case http.MethodDelete:
+		req.Method = http.MethodDelete
 	}
 
 	rs, err := ts.Client().Do(req)
