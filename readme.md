@@ -1,3 +1,4 @@
+![](https://github.com/jcorry/nmap-scan-api/workflows/Go%20build/badge.svg)
 # nmap-scan API
 
 ## Problem
