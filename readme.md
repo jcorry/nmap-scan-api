@@ -76,6 +76,7 @@ the Go binary, but it will depend on your having SQLite installed. "It works on 
 it too, I've packaged the app in a docker image.
 
 1. Clone the repo
+
     `git clone git@github.com:jcorry/nmap-scan-api.git`
 
 2. Build the image
@@ -96,6 +97,11 @@ it too, I've packaged the app in a docker image.
 Upload an nmap XML file to be parsed and saved to the DB.
 
 ## Request
+```
+{
+    "file": "nmap.results.xml"
+}
+```
 
 ## Response
 201
@@ -107,8 +113,7 @@ created
 ERROR_MESSAGE string
 ```
 
-## **GET** /api/v1/nmap
-## **GET** /nmap/list (HTML representation)
+## **GET** /api/v1/nmap (JSON representation)
 
 Get a paginated list of nmap hosts
 
@@ -127,6 +132,7 @@ Get a paginated list of nmap hosts
 Example: http://localhost:8080/api/v1/nmap?start=0&length=400
 
 ### Response
+200
 ```
 {
     "meta": {
@@ -160,6 +166,31 @@ Example: http://localhost:8080/api/v1/nmap?start=0&length=400
     ]
 }
 ```
+400
+```
+bad request error
+```
+
+## **GET** /nmap/list (HTML representation)
+### Request
+
+- start
+  - In: query
+  - Valid: int
+  - Matches: The starting index of records to retrieve
+
+- length
+  - In: query
+  - Valid: int (max: 1000)
+  - Matches: The number of records to retrieve
+
+Example: http://localhost:8080/nmap/list?start=0&length=400
+
+### Response
+200
+```
+HTML list view of nmap host scans
+```
 
 ### Data Structures
 
@@ -172,9 +203,9 @@ prevent the user from ever successfully uploading that file.
 
 I've never seen nmap data before today but found a Go package used for parsing nmap XML files. The author clearly knows 
 way more than me about nmap data structures so I am going to use their parser and model my app around their structs. I 
-used the XML data format from the available files because it was the first I found suitable tools for parsing it.
+used the XML data format from the available files because it was the first I found 
+[suitable tools](https://godoc.org/github.com/tomsteele/go-nmap) for parsing it.
 
-[parser](https://godoc.org/github.com/tomsteele/go-nmap)
 
 There's a ton of data that is available in nmap results, for our demo project we will focus on only a subset of that data. 
 My API response as designed above will inform the SQL structure and the internal structs that query data is scanned to.
