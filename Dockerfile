@@ -20,6 +20,7 @@ RUN rm -rf /var/cache/apk/*
 ENV GO111MODULE=on
 ENV CGO_ENABLED=1
 ENV GOFLAGS=-mod=vendor
+ENV TMPL_DIR=/app/tmpl
 
 # Move source files
 COPY . .
@@ -41,10 +42,14 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /app
 
 # Copy necessary files
+COPY --from=0 /app/tmpl ./tmpl
 COPY --from=0 /app/api .
 COPY --from=0 /app/db ./db
 COPY --from=0 /app/sql ./sql
+COPY --from=0 /app/static ./static
 CMD ["./api"]
+
+ENV TMPL_DIR=/app/tmpl
 
 # Port
 EXPOSE 8080
