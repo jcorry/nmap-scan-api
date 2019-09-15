@@ -29,7 +29,10 @@ jobs:
       - name: Build
         run: go build -v ./...
 
+      - name: Print workspace val
+        run: echo $GITHUB_WORKSPACE
+
       - name: Test
         env:
-          TMPL_DIR: ${{ GITHUB_WORKSPACE }}/tmpl
+          TMPL_DIR: ${GITHUB_WORKSPACE}/tmpl
         run: go test -v ./...
