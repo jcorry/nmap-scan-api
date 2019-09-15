@@ -19,7 +19,7 @@ In the above challenge, feel free to use any language. For your submission, pack
 3. Additional thoughts about the project.
 
 ## Solution
-![](https://i.imgflip.com/3am9pr)
+![](https://i.imgflip.com/3am9pr.jpg)
 
 One of the things I love the most about software creation is the great fact that no matter how far you progress into the 
 disciplines, you've merely scratched the surface. There is always another layer that can be added to make a program 
