@@ -3,6 +3,22 @@
 
 A simple file parser for nmap XML data.
 
+# ATTENTION
+
+It's important to me that you see this work in the context of its github.com repo.
+
+There, you will see not only the files as they exist in this state but:
+1. Issues
+2. Pull requests
+3. Commit history
+4. CI through Github Actions
+
+I think that's crucial context for evaluation of a developer's work.
+
+Please email or text me your github.com username so I can add you to the private repo.
+
+jcorry@gmail.com / 678-592-8804
+
 
 ## Problem
 
