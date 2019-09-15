@@ -16,6 +16,7 @@ In the above challenge, feel free to use any language. For your submission, pack
 3. Additional thoughts about the project.
 
 ## Solution
+![](https://imgflip.com/i/3am9pr)
 
 ### Run it
 1. Build the image
