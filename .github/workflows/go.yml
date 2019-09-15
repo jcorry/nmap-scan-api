@@ -31,5 +31,5 @@ jobs:
 
       - name: Test
         env:
-          TMPL_DIR: ${GITHUB_WORKSPACE}/tmpl
+          TMPL_DIR: ${{ GITHUB_WORKSPACE }}/tmpl
         run: go test -v ./...
