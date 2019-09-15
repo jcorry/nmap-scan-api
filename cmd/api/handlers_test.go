@@ -29,26 +29,37 @@ func Test_List(t *testing.T) {
 	}
 
 	tests := []struct {
-		name     string
-		start    int
-		length   int
-		wantCode int
-		wantBody string
+		name        string
+		url         string
+		contentType string
+		start       int
+		length      int
+		wantCode    int
+		wantBody    string
 	}{
 		{
 			"Success",
+			"/nmap/list",
+			"text/html",
 			0,
 			0,
 			200,
 			"Host",
 		},
+		{
+			"Success JSON",
+			"/api/v1/nmap",
+			"application/json",
+			0,
+			0,
+			200,
+			"items",
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			urlPath := "/nmap/list"
-
-			code, _, body := ts.request(t, http.MethodGet, urlPath, bytes.NewReader(nil))
+			code, _, body := ts.request(t, http.MethodGet, tt.url, tt.contentType, bytes.NewReader(nil))
 			if code != tt.wantCode {
 				t.Errorf("want %d; got %d", tt.wantCode, code)
 			}

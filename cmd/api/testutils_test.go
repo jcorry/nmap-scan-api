@@ -131,18 +131,18 @@ func (ts *testServer) fileRequest(t *testing.T, urlPath string, fileFieldName, f
 	return rs.StatusCode, rs.Header, rsBody
 }
 
-func (ts *testServer) request(t *testing.T, method string, urlPath string, reqBody io.Reader) (int, http.Header, []byte) {
+func (ts *testServer) request(t *testing.T, method, urlPath, contentType string, reqBody io.Reader) (int, http.Header, []byte) {
 	u, err := url.Parse(ts.URL + urlPath)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	req := &http.Request{
-		Method: "PATCH",
+		Method: "GET",
 		URL:    u,
 		Body:   ioutil.NopCloser(reqBody),
 		Header: map[string][]string{
-			"Content-Type": {"application/json"},
+			"Content-Type": {contentType},
 		},
 	}
 
