@@ -120,6 +120,22 @@ func (a *application) list(w http.ResponseWriter, r *http.Request) {
 		Hosts: hosts,
 	}
 
+	// JSON return allows the same handler to be used for API endpoint
+	if r.Header.Get("Content-Type") == "application/json" {
+		type JSONData struct {
+			Meta  *models.Meta   `json:"meta"`
+			Hosts []*models.Host `json:"items"`
+		}
+
+		jsonData := JSONData{
+			Meta:  meta,
+			Hosts: hosts,
+		}
+		a.jsonResponse(w, jsonData)
+		return
+	}
+
+	// If we didn't return JSON, we'll return HTML
 	t, err := template.ParseFiles(templates...)
 	if err != nil {
 		fmt.Println(err)

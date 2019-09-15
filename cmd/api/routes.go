@@ -9,6 +9,7 @@ import (
 func (a *application) routes() http.Handler {
 	mux := pat.New()
 	// API routes
+	mux.Get("/api/v1/nmap", http.HandlerFunc(a.list))
 	mux.Post("/api/v1/nmap/upload", http.HandlerFunc(a.upload))
 
 	fileServer := http.FileServer(http.Dir("./static/"))

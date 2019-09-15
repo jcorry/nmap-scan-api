@@ -11,9 +11,9 @@ import (
 
 // Meta is metadata about a response
 type Meta struct {
-	Start  int
-	Length int
-	Total  int
+	Start  int `json:"start"`
+	Length int `json:"length"`
+	Total  int `json:"total"`
 }
 
 // FileImport is the importation of a single nmap file
@@ -38,14 +38,14 @@ type Host struct {
 
 // Address is an internal type that contains a subset of the data in a go-nmap.Address
 type Address struct {
-	HostID   NullInt64  `json:"hostid" db:"host_id"`
+	HostID   NullInt64  `json:"-" db:"host_id"`
 	Addr     NullString `json:"addr" db:"addr"`
 	AddrType NullString `json:"addrtype" db:"addrtype"`
 }
 
 // Port is an internal type that contains a subset of the data in a go-nmap.Port
 type Port struct {
-	HostID   NullInt64  `json:"hostid" db:"host_id"`
+	HostID   NullInt64  `json:"-" db:"host_id"`
 	Protocol NullString `json:"protocol" db:"protocol"`
 	PortID   NullInt64  `json:"portid" db:"port_id"`
 	Owner    NullString `json:"owner" db:"owner"`
@@ -54,7 +54,7 @@ type Port struct {
 
 // Hostname is an internal type that contains a subset of the data in a go-nmap.Hostname
 type Hostname struct {
-	HostID NullInt64  `json:"hostid" db:"host_id"`
+	HostID NullInt64  `json:"-" db:"host_id"`
 	Name   NullString `json:"name" db:"name"`
 	Type   NullString `json:"type" db:"type"`
 }
@@ -122,6 +122,13 @@ func (n *NullString) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+func (n *NullString) MarshalJSON() ([]byte, error) {
+	if !n.Valid {
+		return []byte("null"), nil
+	}
+	return json.Marshal(n.String)
+}
+
 func (n *NullString) Scan(value interface{}) error {
 	var s sql.NullString
 	if err := s.Scan(value); err != nil {
@@ -146,6 +153,13 @@ func (n *NullInt64) UnmarshalJSON(b []byte) error {
 	err := json.Unmarshal(b, &n.Int64)
 	n.Valid = (err == nil)
 	return err
+}
+
+func (n *NullInt64) MarshalJSON() ([]byte, error) {
+	if !n.Valid {
+		return []byte("null"), nil
+	}
+	return json.Marshal(n.Int64)
 }
 
 // Scan implements the Scanner interface for NullInt64

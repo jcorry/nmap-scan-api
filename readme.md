@@ -1,6 +1,9 @@
 ![](https://github.com/jcorry/nmap-scan-api/workflows/Go%20build/badge.svg)
 # nmap-scan API
 
+A simple file parser for nmap XML data.
+
+
 ## Problem
 
 * Build a REST API to import a single nmap scan result.
@@ -16,18 +19,54 @@ In the above challenge, feel free to use any language. For your submission, pack
 3. Additional thoughts about the project.
 
 ## Solution
-![](https://imgflip.com/i/3am9pr)
+![](https://i.imgflip.com/3am9pr)
+
+One of the things I love the most about software creation is the great fact that no matter how far you progress into the 
+disciplines, you've merely scratched the surface. There is always another layer that can be added to make a program 
+better.
+
+I love building things and I really want to build them well. Perfection is probably not possible, but striving to become 
+better at our craft and seeking better ways of doing things can be a part of every day and every task. 
+[Kaizen](https://en.wikipedia.org/wiki/Kaizen), improvement.
+
+In this exercise I tried to convey some of the principles and practices that I believe are good, some of those are:
+1. Separation of concerns
+2. Documentation should be adequate
+3. Unit/Integration test should back the code
+4. CI protects the codebase
+5. Issues should be tracked and changes to code should reference the issue that required the change
+6. Source control should be used effectively and should tell a story about the development of a project
+
+I also made some compromises for the sake of expediency:
+1. There's some duplication in test setup between `/cmd` and `/pkg`. I normally would use DB mocks in my http handler tests
+but am experimenting with this idea that better tests use an actual DB instead of a mock. I'm not sure how I feel about 
+this but wanted to try it.
+
+2. I didn't have time to write Swagger/Openapi docs for the REST endpoints, so I just loosely documented them here in 
+the README.
+
+3. I would probably revise the data model if I were to do this over again. Once I got into implementing the UI (last!)
+I found some characteristics of the data models that I didn't like.
 
 ### Run it
-1. Build the image
+The most reliable way to distribute the application is as a docker image. You will need docker installed on your 
+machine to run the Dockerfile. If you do not have Docker installed on your machine, you may be able to build and run
+the Go binary, but it will depend on your having SQLite installed. "It works on my machine", but to make sure you can run 
+it too, I've packaged the app in a docker image.
+
+1. Clone the repo
+    `git clone git@github.com:jcorry/nmap-scan-api.git`
+
+2. Build the image
 
     `docker build -t nmap-api .`
 
-2. Run the image in a container
+3. Run the image in a container
 
     `docker run -it -e "PORT=8080" -p 8080:8080 nmap-api`
 
-3. Make requests!
+4. Make requests!
+[My Postman Collection](https://www.getpostman.com/collections/50372469fa0e3f090a47)
 
 # HTTP Endpoints
 
@@ -48,7 +87,7 @@ ERROR_MESSAGE string
 ```
 
 ## **GET** /api/v1/nmap
-## **GET** /nmap (HTML representation)
+## **GET** /nmap/list (HTML representation)
 
 Get a paginated list of nmap hosts
 
@@ -64,16 +103,11 @@ Get a paginated list of nmap hosts
   - Valid: int (max: 1000)
   - Matches: The number of records to retrieve
 
-Example: http://localhost:4000/api/v1/nmap?start=0&length=400
+Example: http://localhost:8080/api/v1/nmap?start=0&length=400
 
 ### Response
 ```
 {
-    "links": {
-        "self": {
-            "href": "/api/v1/nmap"
-        }
-    },
     "meta": {
         "start": 0,
         "length": 100,
@@ -81,6 +115,7 @@ Example: http://localhost:4000/api/v1/nmap?start=0&length=400
     },
     "items": [
         {
+            "fileid": string,
             "starttime": timestamp,
             "endtime": timestamp,
             "comment": string
@@ -99,7 +134,8 @@ Example: http://localhost:4000/api/v1/nmap?start=0&length=400
                 "owner": string,
                 "service": string,
             ]
-        }
+        },
+        ...
     ]
 }
 ```
@@ -114,7 +150,8 @@ to the imports table but the batch insert of hosts fails, rollsback and leaves t
 prevent the user from ever successfully uploading that file.
 
 I've never seen nmap data before today but found a Go package used for parsing nmap XML files. The author clearly knows 
-way more than me about nmap data structures so I am going to use their parser and model my app around their structs.
+way more than me about nmap data structures so I am going to use their parser and model my app around their structs. I 
+used the XML data format from the available files because it was the first I found suitable tools for parsing it.
 
 [parser](https://godoc.org/github.com/tomsteele/go-nmap)
 
@@ -133,3 +170,6 @@ and can be remedied by using a `[]*models.Host` as the parent structure and elim
 ### UI
 The UI is a simple HTML grid supplied by Bootstrap 4. The HTML is generated from templates using Go's `html/template` package
 which is sparse, but adequate for very basic display.
+
+The list view also makes a JSON representation available. An API URL is provided. If the `Content-Type` request header
+is `application/json` the handler will respond with JSON.
