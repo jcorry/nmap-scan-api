@@ -19,6 +19,8 @@ RUN rm -rf /var/cache/apk/*
 # env vars
 ENV GO111MODULE=on
 ENV CGO_ENABLED=1
+ENV GOFLAGS=-mod=vendor
+ENV TMPL_DIR=/app/tmpl
 
 # Move source files
 COPY . .
@@ -26,8 +28,12 @@ COPY . .
 # Since this wasn't in the repo, create it here...will not persist between image builds
 RUN touch db/data.db
 
+# Run the tests
+RUN go test ./...
+
 # Build the app
 RUN go build -v -mod=vendor ./cmd/api
+
 
 # New container in which this will run
 FROM alpine
@@ -36,10 +42,14 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /app
 
 # Copy necessary files
+COPY --from=0 /app/tmpl ./tmpl
 COPY --from=0 /app/api .
 COPY --from=0 /app/db ./db
 COPY --from=0 /app/sql ./sql
+COPY --from=0 /app/static ./static
 CMD ["./api"]
+
+ENV TMPL_DIR=/app/tmpl
 
 # Port
 EXPOSE 8080

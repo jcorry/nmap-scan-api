@@ -1,0 +1,41 @@
+{{ define "title"}}{{.Title}}{{ end }}
+
+{{ define "content" }}
+<div class="container">
+	<h1>NMAP Hosts (Page total: {{ len .Hosts }})</h1>
+	{{ range .Hosts}}
+		<h3>Host {{ .ID }}</h3>
+		<div class="row">
+			<div class="col"><strong>Import File:</strong> {{ printf "%.15s" .FileID }}</div>
+		</div>
+		<div class="row">
+			<div class="col"><strong>Start:</strong> {{ .StartTime.Format "2006 Jan 02 15:04:05 UTC" }}</div>
+			<div class="col"><strong>End:</strong> {{ .EndTime.Format "2006 Jan 02 15:04:05 UTC" }}</div>
+		</div>
+        {{ $length := len .Hostnames }} {{ if gt $length 0}}
+		<div class="row">
+			<div class="col">
+				<strong>Hostname: </strong><a href="{{ (index .Hostnames 0).Name.String }}" target="_blank">{{ (index .Hostnames 0).Name.String }}- {{ (index .Hostnames 0).Type.String }}</a>
+			</div>
+		</div>
+		{{ end }}
+		<div class="row">
+			<div class="col">
+				<p class="bg-light">Address</p>
+                <div class="row">
+					<div class="col">{{ (index .Addresses 0).Addr.String }}</div>
+				</div>
+			</div>
+			<div class="col">
+				<p class="bg-light">Port</p>
+                {{ range .Ports }}
+				<div class="row">
+					<div class="col">Port: {{ .PortID.Int64 }} ({{ .Protocol.String }})</div>
+					<div class="col">{{ .Service.String}} {{ .Owner.String }}</div>
+				</div>
+                {{ end }}
+			</div>
+		</div>
+	{{ end }}
+</div>
+{{ end }}

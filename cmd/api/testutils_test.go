@@ -15,6 +15,9 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/sqlite3"
+
 	"github.com/jcorry/nmap-scan-api/pkg/models/mock"
 )
 
@@ -24,6 +27,7 @@ type testServer struct {
 
 func newTestApplication(t *testing.T) *application {
 	return &application{
+		tmplDir:    os.Getenv("TMPL_DIR"),
 		errorLog:   log.New(ioutil.Discard, "", 0),
 		infoLog:    log.New(ioutil.Discard, "", 0),
 		hostRepo:   &mock.HostRepo{},
@@ -31,14 +35,51 @@ func newTestApplication(t *testing.T) *application {
 	}
 }
 
-func newTestDB(t *testing.T) *sql.DB {
-	sqlite_test.newTestDB(t)
-}
-
 func newTestServer(t *testing.T, h http.Handler) *testServer {
 	ts := httptest.NewServer(h)
 
 	return &testServer{ts}
+}
+
+func newTestDB(t *testing.T) (*sql.DB, func()) {
+	os.Remove("memory:")
+	db, err := sql.Open("sqlite3", "file:memory:?cache=shared")
+	if err != nil {
+		t.Fatal(err)
+	}
+	// DB migrations
+	driver, err := sqlite3.WithInstance(db, &sqlite3.Config{})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Look for migration files relative to this directory
+	filePath, err := os.Getwd()
+	migrationsPath := fmt.Sprintf("%s/../../sql/migrations", filePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	m, err := migrate.NewWithDatabaseInstance(
+		fmt.Sprintf("file://"+migrationsPath),
+		"sqlite3", driver)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = m.Up()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return db, func() {
+		err := m.Down()
+		if err != nil {
+			t.Fatal(err)
+		}
+		db.Close()
+	}
 }
 
 func (ts *testServer) fileRequest(t *testing.T, urlPath string, fileFieldName, filename string) (int, http.Header, []byte) {
@@ -90,32 +131,32 @@ func (ts *testServer) fileRequest(t *testing.T, urlPath string, fileFieldName, f
 	return rs.StatusCode, rs.Header, rsBody
 }
 
-func (ts *testServer) request(t *testing.T, method string, urlPath string, reqBody io.Reader) (int, http.Header, []byte) {
+func (ts *testServer) request(t *testing.T, method, urlPath, contentType string, reqBody io.Reader) (int, http.Header, []byte) {
 	u, err := url.Parse(ts.URL + urlPath)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	req := &http.Request{
-		Method: "PATCH",
+		Method: "GET",
 		URL:    u,
 		Body:   ioutil.NopCloser(reqBody),
 		Header: map[string][]string{
-			"Content-Type": {"application/json"},
+			"Content-Type": {contentType},
 		},
 	}
 
 	switch method {
-	case "get":
-		req.Method = "GET"
-	case "post":
-		req.Method = "POST"
-	case "patch":
-		req.Method = "PATCH"
-	case "put":
-		req.Method = "PUT"
-	case "delete":
-		req.Method = "DELETE"
+	case http.MethodGet:
+		req.Method = http.MethodGet
+	case http.MethodPost:
+		req.Method = http.MethodPost
+	case http.MethodPatch:
+		req.Method = http.MethodPatch
+	case http.MethodPut:
+		req.Method = http.MethodPut
+	case http.MethodDelete:
+		req.Method = http.MethodDelete
 	}
 
 	rs, err := ts.Client().Do(req)

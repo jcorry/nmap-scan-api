@@ -9,8 +9,8 @@ CREATE UNIQUE INDEX idx_imports_file_id ON imports(file_id);
 CREATE TABLE hosts (
     `id` INTEGER PRIMARY KEY,
     `file_id` TEXT NOT NULL,
-    `starttime` TEXT NOT NULL,
-    `endtime` TEXT NOT NULL,
+    `starttime` DATETIME NOT NULL,
+    `endtime` DATETIME NOT NULL,
     `comment` TEXT,
     `status` TEXT,
     FOREIGN KEY (`file_id`) REFERENCES imports(`file_id`)

@@ -9,6 +9,101 @@ import (
 	"github.com/jcorry/nmap-scan-api/pkg/models/sqlite"
 )
 
+func Test_HostCount(t *testing.T) {
+	tests := []struct {
+		name    string
+		wantErr error
+	}{
+		{
+			"Success",
+			nil,
+		},
+	}
+
+	// Set up the DB and populate with data
+	db, teardown := newTestDB(t)
+	defer teardown()
+	h := sqlite.HostRepo{DB: db}
+
+	hostData, err := getValidHostSlice(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = h.BatchInsert(hostData)
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			count, err := h.Count()
+			if err != tt.wantErr {
+				t.Fatalf("Error mismatch, want %s, got %s", tt.wantErr, err)
+			}
+			if count != len(hostData) {
+				t.Fatalf("Wrong count, espected %d, got %d", len(hostData), count)
+			}
+		})
+	}
+}
+
+func Test_HostList(t *testing.T) {
+	tests := []struct {
+		name        string
+		startParam  int
+		lengthParam int
+		wantErr     error
+	}{
+		{
+			"Success",
+			0,
+			0,
+			nil,
+		},
+		{
+			"Success with params",
+			1,
+			1,
+			nil,
+		},
+	}
+
+	// Set up the DB and populate with data
+	db, teardown := newTestDB(t)
+	defer teardown()
+	h := sqlite.HostRepo{DB: db}
+
+	hostData, err := getValidHostSlice(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = h.BatchInsert(hostData)
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			meta, list, err := h.List(tt.startParam, tt.lengthParam)
+			if err != tt.wantErr {
+				t.Fatalf("Want err %s, Got err %s", tt.wantErr, err)
+			}
+
+			totalRecords, err := h.Count()
+			if err != nil {
+				t.Fatalf("Count failed")
+			}
+
+			if meta.Total != totalRecords {
+				t.Fatalf("Mismatch between meta.Total (%d) and h.Count (%d)", meta.Total, totalRecords)
+			}
+
+			if meta.Start != tt.startParam {
+				t.Fatalf("Mismatch between meta.Start and tt.StartParam")
+			}
+
+			if meta.Length > 0 && tt.lengthParam > 0 && meta.Length != len(list) {
+				t.Fatalf("List is %d length, expected %d length", len(list), tt.lengthParam)
+			}
+
+		})
+	}
+}
+
 func Test_HostBatchInsert(t *testing.T) {
 	db, teardown := newTestDB(t)
 	defer teardown()
@@ -79,8 +174,8 @@ func Test_HostInsert(t *testing.T) {
 
 			// Host ID should match each port host ID
 			for _, p := range validHost.Ports {
-				if p.HostID != validHost.ID {
-					t.Fatalf("Want port.HostID: %d, Got port.HostID: %d", validHost.ID, p.HostID)
+				if p.HostID != models.ToNullInt64(validHost.ID) {
+					t.Fatalf("Want port.HostID: %d, Got port.HostID: %d", validHost.ID, p.HostID.Int64)
 				}
 			}
 		})
