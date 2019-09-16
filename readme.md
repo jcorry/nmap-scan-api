@@ -97,6 +97,10 @@ it too, I've packaged the app in a docker image.
 Upload an nmap XML file to be parsed and saved to the DB.
 
 ## Request
+### Header
+Content-Type=multipart/form-data
+
+### Body
 ```
 {
     "file": "nmap.results.xml"
